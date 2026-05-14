@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="ABC Design — Open Graph card">
+  <title>ABC Design — Open Graph card</title>
+  <rect width="1200" height="630" fill="#FFFDF9"/>
+  <g stroke="#111" stroke-width="1" fill="none">
+    <rect x="32" y="32" width="1136" height="566"/>
+  </g>
+
+  <!-- corner mark -->
+  <g fill="#111" transform="translate(72 80) scale(0.18)">
+    <rect x="146.172" y="113.867" width="86.7963" height="86.7963"/>
+    <rect x="0.124196" y="0.124196" width="86.5479" height="86.5479"/>
+    <rect x="247.105" y="9.70508" width="86.7963" height="86.7963"/>
+    <rect x="387.011" y="158.499" width="247.989" height="86.7963"/>
+  </g>
+
+  <!-- eyebrow -->
+  <text x="72" y="150" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14" letter-spacing="3" fill="#6B6B6B">ABC / DESIGN STUDIO</text>
+
+  <!-- headline -->
+  <text x="72" y="320" font-family="'Public Sans', system-ui, sans-serif" font-size="100" font-weight="400" letter-spacing="-3.5" fill="#111">A studio of</text>
+  <text x="72" y="430" font-family="'Instrument Serif', serif" font-style="italic" font-size="120" fill="#F25E08">designers,</text>
+  <text x="72" y="540" font-family="'Public Sans', system-ui, sans-serif" font-size="100" font-weight="400" letter-spacing="-3.5" fill="#111">engineers &amp;</text>
+  <text x="640" y="540" font-family="'Instrument Serif', serif" font-style="italic" font-size="120" fill="#F672C6">inventors.</text>
+
+  <!-- footer -->
+  <text x="1128" y="572" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="13" letter-spacing="2.6" fill="#6B6B6B">ABC.DESIGN</text>
+
+  <!-- color bar -->
+  <rect x="32" y="586" width="1136" height="12" fill="#F0CE2E"/>
+  <rect x="32" y="586" width="227" height="12" fill="#F25E08"/>
+  <rect x="259" y="586" width="227" height="12" fill="#F672C6"/>
+  <rect x="486" y="586" width="227" height="12" fill="#1570F4"/>
+  <rect x="713" y="586" width="227" height="12" fill="#00B800"/>
+</svg>

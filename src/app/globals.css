@@ -1,26 +1,372 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* =========================================================
+   ABC Design — Global Styles & Design Tokens
+   Editorial Index Card / Kinetic Studio
+   ========================================================= */
+
+@theme {
+  /* Colors */
+  --color-bg:           #FFFDF9;
+  --color-bg-warm:      #F7EDD9;
+  --color-bg-inverse:   #121212;
+  --color-bg-cream:     #F1E7D0;
+  --color-text:         #111111;
+  --color-text-inverse: #FFFDF9;
+  --color-text-muted:   #6B6B6B;
+  --color-text-faint:   #B5B0A6;
+
+  --color-blue:         #1570F4;
+  --color-pink:         #F672C6;
+  --color-green:        #00B800;
+  --color-orange:       #F25E08;
+  --color-yellow:       #F0CE2E;
+
+  --color-blue-light:   #06AAFF;
+  --color-pink-light:   #F7A0D3;
+  --color-green-dark:   #0D9A3E;
+
+  --color-border:       #111111;
+  --color-rule:         rgba(17,17,17,0.12);
+
+  /* Typography */
+  --font-sans:    "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif:   "Instrument Serif", "Times New Roman", Georgia, serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Spacing extras */
+  --spacing-18: 4.5rem;
+
+  /* Border radius */
+  --radius-full: 9999px;
+
+  /* Motion */
+  --ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* =========================================================
+   Base
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-x: hidden;
+  cursor: none;
 }
+
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto; }
+}
+
+::selection { background: var(--color-yellow); color: var(--color-text); }
+
+a, button { color: inherit; }
+
+/* =========================================================
+   Editorial primitives
+   ========================================================= */
+
+.serif        { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.01em; }
+.serif-italic { font-family: var(--font-serif); font-weight: 400; font-style: italic; letter-spacing: -0.005em; }
+.mono         { font-family: var(--font-mono); font-weight: 400; font-feature-settings: "ss01" on, "zero" on; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rail {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.rule {
+  height: 1px;
+  background: var(--color-rule);
+  border: 0;
+}
+
+/* Slide-frame border — appears 1rem inside section */
+.slide-frame::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid var(--color-border);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.slide-frame--inverse::before {
+  border-color: rgba(255,253,249,0.18);
+}
+
+/* Slide-frame corner ticks */
+.slide-ticks::after {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  pointer-events: none;
+  z-index: 4;
+  background:
+    linear-gradient(to right, currentColor 0, currentColor 18px, transparent 18px) top    left   / 18px 1px no-repeat,
+    linear-gradient(to bottom, currentColor 0, currentColor 18px, transparent 18px) top    left   / 1px 18px no-repeat,
+    linear-gradient(to left,  currentColor 0, currentColor 18px, transparent 18px) top    right  / 18px 1px no-repeat,
+    linear-gradient(to bottom, currentColor 0, currentColor 18px, transparent 18px) top    right  / 1px 18px no-repeat,
+    linear-gradient(to right, currentColor 0, currentColor 18px, transparent 18px) bottom left   / 18px 1px no-repeat,
+    linear-gradient(to top,    currentColor 0, currentColor 18px, transparent 18px) bottom left   / 1px 18px no-repeat,
+    linear-gradient(to left,  currentColor 0, currentColor 18px, transparent 18px) bottom right  / 18px 1px no-repeat,
+    linear-gradient(to top,    currentColor 0, currentColor 18px, transparent 18px) bottom right  / 1px 18px no-repeat;
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+  cursor: none;
+  text-decoration: none;
+  line-height: 1;
+  overflow: hidden;
+  transition: color 320ms var(--ease-out), background 320ms var(--ease-out), border-color 320ms var(--ease-out);
+}
+@media (hover: none) { .btn { cursor: pointer; } }
+
+.btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0; height: 0;
+  background: currentColor;
+  border-radius: 9999px;
+  transform: translate(-50%,-50%);
+  transition: width 480ms var(--ease-out), height 480ms var(--ease-out);
+  z-index: 0;
+  opacity: 0.08;
+}
+.btn:hover::after { width: 240%; height: 240%; }
+.btn > * { position: relative; z-index: 1; }
+
+.btn-primary {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+}
+.btn-primary:hover { background: var(--color-orange); border-color: var(--color-orange); color: var(--color-bg); }
+
+.btn-ghost { background: transparent; color: var(--color-text); border-color: var(--color-text); }
+.btn-ghost:hover { background: var(--color-text); color: var(--color-bg); }
+
+.btn-ghost-inverse { background: transparent; color: var(--color-text-inverse); border-color: var(--color-text-inverse); }
+.btn-ghost-inverse:hover { background: var(--color-text-inverse); color: var(--color-text); }
+
+/* =========================================================
+   Links — editorial underline reveal
+   ========================================================= */
+.ed-link {
+  position: relative;
+  text-decoration: none;
+  color: currentColor;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+}
+.ed-link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: right;
+  transition: transform 360ms var(--ease-out);
+}
+.ed-link:hover::after { transform: scaleX(0); transform-origin: left; }
+.ed-link--quiet::after { opacity: 0.35; }
+.ed-link--quiet:hover::after { opacity: 1; transform: scaleX(1); transform-origin: left; }
+
+/* =========================================================
+   Headlines — word reveal
+   ========================================================= */
+@keyframes wordRise {
+  from { transform: translateY(110%) skewY(6deg); opacity: 0; }
+  to   { transform: translateY(0)    skewY(0deg); opacity: 1; }
+}
+.word-mask { display: inline-block; overflow: hidden; vertical-align: bottom; padding-right: 0.05em; padding-bottom: 0.05em; }
+.word-mask > span {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  animation: wordRise 900ms var(--ease-out) forwards;
+  animation-delay: var(--word-delay, 0ms);
+}
+
+/* Fade up — for blocks */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 0.9s var(--ease-out) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+/* In-view reveal (used with IntersectionObserver via [data-reveal]) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+}
+[data-reveal].is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   Marquee
+   ========================================================= */
+@keyframes marqueeX {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-50%,0,0); }
+}
+.marquee {
+  display: flex;
+  width: max-content;
+  gap: 3rem;
+  animation: marqueeX 38s linear infinite;
+}
+.marquee--reverse { animation-direction: reverse; }
+.marquee:hover { animation-play-state: paused; }
+
+/* =========================================================
+   Custom cursor
+   ========================================================= */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate3d(-100px,-100px,0);
+  will-change: transform;
+}
+.cursor-dot {
+  width: 6px; height: 6px;
+  background: var(--color-text);
+  border-radius: 9999px;
+  transition: width 240ms var(--ease-out), height 240ms var(--ease-out), background 240ms var(--ease-out);
+  margin: -3px 0 0 -3px;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--color-text);
+  border-radius: 9999px;
+  margin: -18px 0 0 -18px;
+  transition: width 320ms var(--ease-out), height 320ms var(--ease-out), border-color 320ms var(--ease-out), opacity 320ms var(--ease-out), margin 320ms var(--ease-out);
+  opacity: 0.7;
+  mix-blend-mode: difference;
+}
+.cursor-active .cursor-ring {
+  width: 72px; height: 72px;
+  margin: -36px 0 0 -36px;
+  opacity: 1;
+}
+.cursor-active .cursor-dot {
+  width: 0; height: 0; margin: 0;
+}
+.cursor-text {
+  position: fixed;
+  top: 0; left: 0;
+  transform: translate3d(-200px,-200px,0);
+  pointer-events: none;
+  z-index: 9998;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 0.5rem 0.75rem;
+  border-radius: 9999px;
+  opacity: 0;
+  transition: opacity 220ms var(--ease-out);
+  white-space: nowrap;
+}
+.cursor-text.is-on { opacity: 1; }
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot, .cursor-ring, .cursor-text { display: none; }
+}
+
+/* =========================================================
+   Grain
+   ========================================================= */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* =========================================================
+   Form fields
+   ========================================================= */
+.field {
+  width: 100%;
+  padding: 0.875rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 220ms var(--ease-out), padding 220ms var(--ease-out);
+}
+.field::placeholder { color: var(--color-text-faint); }
+.field:focus { border-color: var(--color-orange); }
+
+/* =========================================================
+   Inverse color section
+   ========================================================= */
+.inverse { background: var(--color-bg-inverse); color: var(--color-text-inverse); }
+.inverse .rule { background: rgba(255,253,249,0.14); }
+.inverse .rail { color: rgba(255,253,249,0.5); }
+.inverse .eyebrow { color: rgba(255,253,249,0.6); }
+
+/* =========================================================
+   Magnetic hover helper
+   ========================================================= */
+.magnet { display: inline-block; transition: transform 420ms var(--ease-spring); will-change: transform; }

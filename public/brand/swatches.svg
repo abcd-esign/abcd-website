@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 60" role="img" aria-label="ABC brand swatches">
+  <title>ABC brand swatches</title>
+  <rect x="0"   y="0" width="60" height="60" fill="#1570F4"/>
+  <rect x="60"  y="0" width="60" height="60" fill="#F672C6"/>
+  <rect x="120" y="0" width="60" height="60" fill="#00B800"/>
+  <rect x="180" y="0" width="60" height="60" fill="#F25E08"/>
+  <rect x="240" y="0" width="60" height="60" fill="#F0CE2E"/>
+  <rect x="300" y="0" width="60" height="60" fill="#111111"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" role="img" aria-label="ABC favicon">
+  <rect width="256" height="256" rx="32" fill="#FFFDF9"/>
+  <g fill="#111111">
+    <rect x="64"  y="40"  width="56" height="56"/>
+    <rect x="136" y="40"  width="56" height="56"/>
+    <rect x="64"  y="112" width="56" height="56"/>
+    <rect x="136" y="112" width="56" height="56"/>
+    <rect x="64"  y="184" width="128" height="32"/>
+  </g>
+  <path fill="#F25E08" d="M155 145.5l4.04 10.92L170 160.46l-10.92 4.04L155 175.42l-4.04-10.92L140 160.46l10.92-4.04L155 145.5Z"/>
+</svg>
