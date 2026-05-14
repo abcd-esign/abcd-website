@@ -12,29 +12,44 @@ import Link from "next/link";
 export function Hero() {
   const rootRef = useRef<HTMLElement>(null);
 
-  /* Subtle rise on the headline as the page scrolls */
+  /* Subtle rise on the headline as the page scrolls. Skipped on
+     coarse pointers and for users that prefer reduced motion. */
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    if (reduce || coarse) return;
     const content = root.querySelector<HTMLDivElement>("[data-stage-content]");
+    if (!content) return;
     let raf = 0;
-    function tick() {
-      const y = window.scrollY;
-      if (content) content.style.transform = `translate3d(0, ${y * -0.05}px, 0)`;
-      raf = requestAnimationFrame(tick);
+    let pending = false;
+    function update() {
+      pending = false;
+      if (content) content.style.transform = `translate3d(0, ${window.scrollY * -0.05}px, 0)`;
     }
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    function onScroll() {
+      if (pending) return;
+      pending = true;
+      raf = requestAnimationFrame(update);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
     <section
       ref={rootRef}
       aria-label="ABC Design — Home"
+      className="hero-stage"
       style={{
         position: "relative",
-        height: "calc(100vh - 80px)",
-        minHeight: 560,
+        /* dvh avoids the iOS Safari URL-bar height jump. */
+        height: "calc(100dvh - 80px)",
+        minHeight: 520,
         background: "var(--color-bg)",
         color: "var(--color-text)",
         overflow: "hidden",
@@ -216,8 +231,14 @@ export function Hero() {
         .stage-mail:hover .stage-mail-arrow { transform: translate(2px, -2px); }
         .stage-mail-arrow { transition: transform 320ms var(--ease-out); }
         @media (max-width: 720px) {
-          .hero-lockup > div:first-child { height: clamp(120px, 26vh, 220px) !important; }
+          .hero-stage { min-height: 440px; }
+          .hero-lockup > div:first-child { height: clamp(96px, 22vh, 200px) !important; }
           .hero-tagrow { flex-direction: column !important; align-items: flex-start !important; gap: 0.75rem !important; }
+          /* CTAs stack cleanly and stay tappable */
+          .hero-tagrow .stage-mail { font-size: 1rem !important; padding: 0.625rem 0 !important; }
+        }
+        @media (max-width: 420px) {
+          .hero-tagrow > div:last-child { flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; }
         }
       `}</style>
     </section>

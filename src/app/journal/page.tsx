@@ -89,7 +89,7 @@ export default function JournalPage() {
         style={{
           position: "relative",
           background: "var(--color-bg)",
-          padding: "6rem 2rem 4rem",
+          padding: "clamp(3rem, 6vw, 6rem) clamp(1.25rem, 4vw, 2rem) clamp(2.5rem, 5vw, 4rem)",
           borderBottom: "1px solid var(--color-border)",
         }}
       >
@@ -134,7 +134,7 @@ export default function JournalPage() {
       </section>
 
       {/* Entries */}
-      <section style={{ background: "var(--color-bg)", padding: "4rem 2rem 8rem" }}>
+      <section style={{ background: "var(--color-bg)", padding: "clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2rem) clamp(4rem, 9vw, 8rem)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <ol
             style={{

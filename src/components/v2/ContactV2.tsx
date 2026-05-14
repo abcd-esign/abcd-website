@@ -10,13 +10,12 @@ export function ContactV2() {
   return (
     <section
       id="contact"
+      className="section-bound"
       style={{
         position: "relative",
         background: "var(--color-blue)",
         color: "#FFFFFF",
         padding: "clamp(3rem, 5vw, 5rem) clamp(1.5rem, 4vw, 3rem)",
-        overflow: "hidden",
-        maxHeight: "100vh",
         display: "flex",
         flexDirection: "column",
       }}
@@ -63,17 +62,18 @@ export function ContactV2() {
           }}
         >
           <h2
-            className="fade-up"
+            className="fade-up ctav2-headline"
             style={{
               ["--delay" as string]: "120ms",
               fontFamily: "var(--font-public-sans)",
-              fontSize: "clamp(1.25rem, 3.4vw, 2.75rem)",
+              fontSize: "clamp(1.5rem, 5vw, 2.75rem)",
               fontWeight: 400,
               lineHeight: 1.05,
               letterSpacing: "-0.028em",
               margin: 0,
               color: "#FFFFFF",
-              whiteSpace: "nowrap",
+              maxWidth: "16ch",
+              textWrap: "balance" as const,
             }}
           >
             Let&apos;s build at <span style={{ fontWeight: 700 }}>the speed</span> of light.
@@ -142,6 +142,19 @@ export function ContactV2() {
       <style>{`
         .ctav2-primary:hover { background: #FFFFFF; color: var(--color-blue); }
         .ctav2-ghost:hover { background: #FFFFFF; color: var(--color-blue); }
+        @media (max-width: 560px) {
+          /* Bigger tap targets, stacked CTAs full-width so thumbs don't miss. */
+          .ctav2-primary, .ctav2-ghost {
+            width: 100%;
+            justify-content: center;
+            padding: 1rem 1.25rem !important;
+            font-size: 1rem !important;
+          }
+          #contact > div > div:last-child {
+            flex-direction: column !important;
+            width: 100%;
+          }
+        }
       `}</style>
     </section>
   );

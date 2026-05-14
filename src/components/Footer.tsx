@@ -8,7 +8,7 @@ export function Footer() {
       style={{
         background: "var(--color-bg)",
         borderTop: "1px solid var(--color-border)",
-        padding: "3rem 2rem 2rem",
+        padding: "clamp(2rem, 5vw, 3rem) clamp(1.25rem, 4vw, 2rem) calc(1.5rem + env(safe-area-inset-bottom))",
         color: "var(--color-text)",
       }}
     >
@@ -18,6 +18,7 @@ export function Footer() {
             Height shrinks to keep all 9 items on one line. */}
         <div
           aria-label="ABC Design"
+          className="footer-pattern"
           style={{
             /* Break out of the footer's max-width + padding so the
                pattern spans the entire viewport edge-to-edge. */
@@ -32,7 +33,7 @@ export function Footer() {
             justifyContent: "space-between",
             flexWrap: "nowrap",
             gap: "clamp(0.5rem, 1.2vw, 1.125rem)",
-            height: "clamp(26px, 4vw, 60px)",
+            height: "clamp(28px, 4vw, 60px)",
             boxSizing: "border-box",
           }}
         >
@@ -46,6 +47,14 @@ export function Footer() {
           <PatternMonogram />
           <PatternStar />
         </div>
+        <style>{`
+          /* On phones, drop the last four items so the pattern stays legible
+             and doesn't squish the monograms. Keeps a 5-item star/mono/star/
+             mono/star arrangement. */
+          @media (max-width: 560px) {
+            .footer-pattern > *:nth-child(n+6) { display: none; }
+          }
+        `}</style>
 
         <div
           style={{

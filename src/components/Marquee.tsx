@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 const items = [
   "Product design",
   "Brand identity",
@@ -12,6 +14,7 @@ const items = [
 ];
 
 export function Marquee() {
+  const [paused, setPaused] = useState(false);
   return (
     <section
       aria-label="What we do"
@@ -23,9 +26,23 @@ export function Marquee() {
         overflow: "hidden",
       }}
     >
-      <div className="marquee" style={{ alignItems: "center" }}>
+      <div
+        className="marquee"
+        style={{ alignItems: "center", animationPlayState: paused ? "paused" : "running" }}
+        onClick={() => setPaused((p) => !p)}
+        role="button"
+        tabIndex={0}
+        aria-pressed={paused}
+        aria-label={paused ? "Resume scrolling list" : "Pause scrolling list"}
+        onKeyDown={(e) => {
+          if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            setPaused((p) => !p);
+          }
+        }}
+      >
         {[0, 1].map((dup) => (
-          <div key={dup} style={{ display: "flex", alignItems: "center", gap: "3rem", paddingRight: "3rem" }}>
+          <div key={dup} style={{ display: "flex", alignItems: "center", gap: "clamp(1.5rem, 3vw, 3rem)", paddingRight: "clamp(1.5rem, 3vw, 3rem)" }}>
             {items.map((label, i) => (
               <span
                 key={`${dup}-${i}`}
@@ -34,7 +51,7 @@ export function Marquee() {
                   alignItems: "baseline",
                   gap: "0.75rem",
                   fontFamily: "var(--font-instrument-serif)",
-                  fontSize: "clamp(2rem, 4.5vw, 4.5rem)",
+                  fontSize: "clamp(2.25rem, 6vw, 4.5rem)",
                   lineHeight: 1,
                   letterSpacing: "-0.01em",
                   fontStyle: i % 2 === 0 ? "normal" : "italic",

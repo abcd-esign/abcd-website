@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Public_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
@@ -61,6 +61,16 @@ export const metadata: Metadata = {
     description:
       "An AI-native design studio shipping product, brand and interface work in weeks, not months.",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FFFDF9" },
+    { media: "(prefers-color-scheme: dark)", color: "#FFFDF9" },
+  ],
 };
 
 export default function RootLayout({

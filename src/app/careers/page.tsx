@@ -34,7 +34,7 @@ export default function CareersPage() {
           background: "var(--color-bg)",
           color: "var(--color-text)",
           padding: "clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 3rem) clamp(2.5rem, 5vw, 5rem)",
-          minHeight: "calc(70vh - 80px)",
+          minHeight: "calc(70dvh - 80px)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",

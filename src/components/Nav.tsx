@@ -28,6 +28,20 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* Lock body scroll while the mobile menu is open, and close on Escape. */
+  useEffect(() => {
+    if (!open) return;
+    document.body.classList.add("is-locked");
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.classList.remove("is-locked");
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
     <nav
       style={{
@@ -177,29 +191,56 @@ export function Nav() {
         @media (max-width: 820px) {
           .nav-toggle { display: inline-flex !important; }
           .nav-links {
-            position: absolute;
-            top: 100%;
+            position: fixed;
+            top: 64px;
             left: 0; right: 0;
+            height: calc(100dvh - 64px);
             flex-direction: column !important;
             align-items: stretch !important;
-            gap: 1rem !important;
+            justify-content: flex-start;
+            gap: 0 !important;
             margin: 0 !important;
-            padding: 1.75rem 1.5rem 2rem;
+            padding: 1.5rem 1.5rem calc(2rem + env(safe-area-inset-bottom));
             background: var(--color-bg);
             border-top: 1px solid var(--color-rule);
-            border-bottom: 1px solid var(--color-rule);
             visibility: hidden;
             opacity: 0;
-            transform: translateY(-8px);
-            transition: opacity 280ms var(--ease-out), transform 280ms var(--ease-out), visibility 0s linear 280ms;
+            transform: translateY(-6px);
+            transition: opacity 240ms var(--ease-out), transform 240ms var(--ease-out), visibility 0s linear 240ms;
+            overflow-y: auto;
+            overscroll-behavior: contain;
           }
           .nav-links--open {
             visibility: visible !important;
             opacity: 1 !important;
             transform: translateY(0) !important;
-            transition: opacity 280ms var(--ease-out), transform 280ms var(--ease-out), visibility 0s linear 0s !important;
+            transition: opacity 240ms var(--ease-out), transform 240ms var(--ease-out), visibility 0s linear 0s !important;
           }
-          .nav-links .nav-cta { justify-content: center; height: 44px; padding: 0 1.25rem; }
+          /* Each link gets full-width tap-target row with a rule below it. */
+          .nav-links > span {
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.125rem 0.25rem;
+            border-bottom: 1px solid var(--color-rule);
+            gap: 0 !important;
+          }
+          .nav-links > span > svg { display: none; }
+          .nav-links a.ed-link {
+            font-size: 1.125rem !important;
+            letter-spacing: 0.04em !important;
+            text-transform: none !important;
+            width: 100%;
+            min-height: 28px;
+          }
+          .nav-links a.ed-link::after { display: none; }
+          .nav-links .nav-cta {
+            justify-content: center;
+            height: 52px;
+            padding: 0 1.5rem;
+            font-size: 0.8125rem;
+            margin-top: 1.5rem;
+          }
         }
       `}</style>
     </nav>

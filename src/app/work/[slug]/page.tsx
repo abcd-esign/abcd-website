@@ -42,8 +42,8 @@ export default async function CaseStudyPage({
           position: "relative",
           background: project.hueSoft,
           color: "var(--color-text)",
-          padding: "6rem 2rem 4rem",
-          minHeight: "82vh",
+          padding: "clamp(3rem, 6vw, 6rem) clamp(1.25rem, 4vw, 2rem) clamp(2.5rem, 5vw, 4rem)",
+          minHeight: "82dvh",
           overflow: "hidden",
           borderBottom: "1px solid var(--color-border)",
         }}
@@ -124,7 +124,7 @@ export default async function CaseStudyPage({
       <section
         style={{
           background: "var(--color-bg)",
-          padding: "3rem 2rem",
+          padding: "clamp(2rem, 4vw, 3rem) clamp(1.25rem, 4vw, 2rem)",
           borderBottom: "1px solid var(--color-border)",
         }}
       >
@@ -149,7 +149,7 @@ export default async function CaseStudyPage({
       <section
         style={{
           background: "var(--color-bg)",
-          padding: "6rem 2rem",
+          padding: "clamp(3.5rem, 7vw, 6rem) clamp(1.25rem, 4vw, 2rem)",
           borderBottom: "1px solid var(--color-border)",
         }}
       >
@@ -199,7 +199,7 @@ export default async function CaseStudyPage({
         style={{
           background: "var(--color-bg-inverse)",
           color: "var(--color-text-inverse)",
-          padding: "6rem 2rem",
+          padding: "clamp(3.5rem, 7vw, 6rem) clamp(1.25rem, 4vw, 2rem)",
           borderBottom: "1px solid var(--color-border)",
         }}
       >
@@ -261,7 +261,7 @@ export default async function CaseStudyPage({
       <section
         style={{
           background: project.hueSoft,
-          padding: "6rem 2rem",
+          padding: "clamp(3.5rem, 7vw, 6rem) clamp(1.25rem, 4vw, 2rem)",
           borderBottom: "1px solid var(--color-border)",
           position: "relative",
           overflow: "hidden",
@@ -288,7 +288,7 @@ export default async function CaseStudyPage({
       <section
         style={{
           background: "var(--color-bg)",
-          padding: "8rem 2rem",
+          padding: "clamp(4rem, 9vw, 8rem) clamp(1.25rem, 4vw, 2rem)",
           borderBottom: "1px solid var(--color-border)",
         }}
       >
@@ -322,7 +322,7 @@ export default async function CaseStudyPage({
       <section
         style={{
           background: "var(--color-bg-cream)",
-          padding: "6rem 2rem",
+          padding: "clamp(3.5rem, 7vw, 6rem) clamp(1.25rem, 4vw, 2rem)",
           borderBottom: "1px solid var(--color-border)",
         }}
       >
@@ -401,7 +401,7 @@ export default async function CaseStudyPage({
       <section
         style={{
           background: "var(--color-bg)",
-          padding: "5rem 2rem",
+          padding: "clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 2rem)",
         }}
       >
         <div

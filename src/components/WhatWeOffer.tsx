@@ -90,14 +90,13 @@ export function WhatWeOffer() {
   return (
     <section
       id="what-we-offer"
+      className="section-bound"
       style={{
         position: "relative",
         background: "var(--color-bg)",
         color: "var(--color-text)",
         padding:
           "clamp(4.5rem, 7.5vw, 8rem) clamp(1.5rem, 4vw, 3rem) clamp(2.5rem, 4.5vw, 4.5rem)",
-        maxHeight: "100vh",
-        overflow: "hidden",
       }}
     >
       <div
@@ -262,7 +261,29 @@ function ProcessRow({
 
       <style>{`
         @media (max-width: 720px) {
-          .process-row, .process-label { max-width: 100% !important; }
+          .process-label { max-width: 100% !important; }
+          .process-row {
+            max-width: 100% !important;
+            /* The traditional timeline is wider than a phone screen — let it
+               swipe horizontally so the labels stay readable, and the
+               extra swipe distance physically conveys "this process is
+               longer." Snap to start so the first step is always visible. */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+            scroll-snap-type: x proximity;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          }
+          .process-row::-webkit-scrollbar { display: none; }
+          .process-row > iframe {
+            height: clamp(72px, 12vw, 100px) !important;
+            width: auto !important;
+            min-width: 100% !important;
+            scroll-snap-align: start;
+          }
+          /* On the ABC row, tint the label so it pops on the bg. */
+          .process-label span:last-of-type { color: inherit; }
         }
       `}</style>
     </div>

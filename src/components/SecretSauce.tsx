@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 /* ============================================================
    Our Secret Sauce.
    Two-column editorial: headline anchors the left, three pillars
@@ -33,17 +35,65 @@ const dividers = [
 ];
 
 export function SecretSauce() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  /* Scroll-driven shimmer: as the section travels through the viewport,
+     each colored divider wave nudges horizontally at a slightly
+     different rate. On phones, this turns a static decorative band into
+     something that responds to the scroll gesture. Cheap (one rAF per
+     scroll), and entirely off if the user prefers reduced motion. */
+  useEffect(() => {
+    const root = sectionRef.current;
+    if (!root) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const waves = Array.from(root.querySelectorAll<HTMLElement>("[data-wave]"));
+    if (!waves.length) return;
+
+    let pending = false;
+    const update = () => {
+      pending = false;
+      const r = root.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      /* progress: 0 when section top hits bottom of viewport, 1 when
+         section bottom leaves the top of viewport. Clamped to [0,1]. */
+      const total = r.height + vh;
+      const travelled = vh - r.top;
+      const p = Math.max(0, Math.min(1, travelled / total));
+      waves.forEach((el, i) => {
+        const dir = i % 2 === 0 ? 1 : -1;
+        const speed = 60 + i * 22;
+        el.style.backgroundPositionX = `${(p - 0.5) * speed * dir}px`;
+      });
+    };
+
+    const onScroll = () => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(update);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="secret-sauce"
+      className="section-bound"
       style={{
         position: "relative",
         background: "var(--color-bg)",
         color: "var(--color-text)",
-        /* Equal 80px inset on all four sides around the yellow card. */
-        padding: "80px",
-        maxHeight: "100vh",
-        overflow: "hidden",
+        /* Fluid inset around the yellow card. Generous on desktop,
+           reasonable on phones (so the card doesn't eat the screen). */
+        padding: "clamp(1.25rem, 6vw, 80px)",
       }}
     >
       {/* Yellow card — real container with uniform internal padding. */}
@@ -124,7 +174,11 @@ export function SecretSauce() {
 
       <style>{`
         @media (max-width: 880px) {
-          .sauce-grid { grid-template-columns: 1fr !important; }
+          .sauce-grid { grid-template-columns: 1fr !important; gap: clamp(1.25rem, 4vw, 2rem) !important; }
+        }
+        @media (max-width: 560px) {
+          /* Shorter dividers and a more contained headline area on phones. */
+          #secret-sauce .sauce-grid > header { min-height: 120px !important; padding: 0.5rem 0 !important; }
         }
       `}</style>
     </section>
@@ -205,14 +259,17 @@ function DividerWave({ src }: { src: string }) {
   return (
     <div
       aria-hidden="true"
+      data-wave
       style={{
         width: "100%",
-        height: "clamp(28px, 3vw, 36px)",
+        height: "clamp(20px, 3vw, 36px)",
         margin: "clamp(0.375rem, 0.8vw, 0.625rem) 0",
         backgroundImage: `url(${src})`,
         backgroundRepeat: "repeat-x",
         backgroundSize: "auto 100%",
         backgroundPosition: "left center",
+        willChange: "background-position",
+        transition: "background-position-x 80ms linear",
       }}
     />
   );

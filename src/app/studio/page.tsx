@@ -64,7 +64,7 @@ export default function StudioPage() {
         style={{
           position: "relative",
           background: "var(--color-bg)",
-          padding: "6rem 2rem 5rem",
+          padding: "clamp(3rem, 6vw, 6rem) clamp(1.25rem, 4vw, 2rem) clamp(2.5rem, 5vw, 5rem)",
           borderBottom: "1px solid var(--color-border)",
           overflow: "hidden",
         }}
@@ -110,7 +110,7 @@ export default function StudioPage() {
       </section>
 
       {/* Principles */}
-      <section style={{ background: "var(--color-bg)", padding: "8rem 2rem", borderBottom: "1px solid var(--color-border)" }}>
+      <section style={{ background: "var(--color-bg)", padding: "clamp(4rem, 9vw, 8rem) clamp(1.25rem, 4vw, 2rem)", borderBottom: "1px solid var(--color-border)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <header
             data-reveal
@@ -217,7 +217,7 @@ export default function StudioPage() {
       </section>
 
       {/* Pull quote */}
-      <section style={{ background: "var(--color-bg-cream)", padding: "8rem 2rem", borderBottom: "1px solid var(--color-border)" }}>
+      <section style={{ background: "var(--color-bg-cream)", padding: "clamp(4rem, 9vw, 8rem) clamp(1.25rem, 4vw, 2rem)", borderBottom: "1px solid var(--color-border)" }}>
         <div data-reveal style={{ maxWidth: 1080, margin: "0 auto", textAlign: "center" }}>
           <p
             style={{
@@ -237,7 +237,7 @@ export default function StudioPage() {
       </section>
 
       {/* Team */}
-      <section style={{ background: "var(--color-bg)", padding: "8rem 2rem", borderBottom: "1px solid var(--color-border)" }}>
+      <section style={{ background: "var(--color-bg)", padding: "clamp(4rem, 9vw, 8rem) clamp(1.25rem, 4vw, 2rem)", borderBottom: "1px solid var(--color-border)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <header
             data-reveal

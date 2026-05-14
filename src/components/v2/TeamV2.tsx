@@ -74,13 +74,12 @@ export function TeamV2() {
   return (
     <section
       id="team"
+      className="section-bound"
       style={{
         position: "relative",
         background: "#121212",
         color: "#FFFDF9",
         padding: "clamp(3rem, 5vw, 5rem) clamp(1.5rem, 4vw, 3rem)",
-        maxHeight: "100vh",
-        overflow: "hidden",
       }}
     >
       {/* Studio sky — scatter of stars across the dark canvas */}
@@ -194,11 +193,25 @@ export function TeamV2() {
         .teamv2-grid > li:nth-child(even) .teamv2-card:hover {
           transform: translateY(-5px) rotate(0.4deg);
         }
+        /* Touch-press feedback that mirrors the desktop hover playfulness. */
+        @media (hover: none), (pointer: coarse) {
+          .teamv2-card {
+            transition: transform 220ms var(--ease-spring), box-shadow 220ms var(--ease-out);
+          }
+          .teamv2-card:active {
+            transform: scale(0.97) rotate(-0.4deg);
+            box-shadow: 0 8px 18px -10px rgba(0,0,0,0.5);
+          }
+          .teamv2-grid > li:nth-child(even) .teamv2-card:active {
+            transform: scale(0.97) rotate(0.4deg);
+          }
+        }
         @media (max-width: 980px) {
           .teamv2-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 560px) {
-          .teamv2-grid { grid-template-columns: 1fr !important; }
+          .teamv2-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+          .teamv2-card { max-width: 360px !important; }
         }
       `}</style>
     </section>
